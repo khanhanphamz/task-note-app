@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Quicksand:wght@300..700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --base-bg: #ffffff;
+    --btn-bg-primary: #be185d;
+    --btn-bg-primary-hover: #9d174d;
+    --btn-icon-main: #1e293b;
+    --btn-bg-ok: #4ade80;
+    --btn-bg-light-ok: #bbf7d0;
+    --btn-bg-light: #e5e7eb;
+    --low-priority: #facc15;
+    --medium-priority: #fb923c;
+    --high-priority: #f87171;
+    --text-error: #dc2626;
+    --text-ok: #16a34a;
+    --text-main: #262626;
+    --border-container: #9ca3af;
+    --border-input: #1e293b;
+    --border-error: #dc2626;
+  }
+
+  body {
+    background-color: var(--base-bg);
+    color: var(--text-main);
+  }
+
+  #date::-webkit-calendar-picker-indicator {
+    background-color: var(--btn-bg-light);
+  }
+}
