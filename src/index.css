@@ -31,4 +31,13 @@
   #date::-webkit-calendar-picker-indicator {
     background-color: var(--btn-bg-light);
   }
+
+  .dark {
+    --base-bg: #262626;
+    --text-main: #ffffff;
+    --text-error: #fca5a5;
+    --text-ok: #86efac;
+    --border-input: #e2e8f0;
+    --border-error: #fca5a5;
+  }
 }

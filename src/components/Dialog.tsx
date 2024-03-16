@@ -1,18 +1,20 @@
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { ReactNode, useState } from "react";
-// import { ITask } from "../types";
 import Button from "./Button";
+import { ITask } from "../types";
 
 interface DialogProps {
   setIsViewTask?: (isViewTask: boolean) => void;
+  setSearchedTasks?: (tasks: ITask[]) => void;
   children: ReactNode;
 }
 
-function Dialog({ setIsViewTask, children }: DialogProps) {
+function Dialog({ setIsViewTask, setSearchedTasks, children }: DialogProps) {
   const [isOpen, setIsOpen] = useState(true);
 
   const closeModal = () => {
     if (setIsViewTask) setIsViewTask(false);
+    if (setSearchedTasks) setSearchedTasks([]);
     setIsOpen(false);
   };
   return (
@@ -29,9 +31,11 @@ function Dialog({ setIsViewTask, children }: DialogProps) {
     >
       <Button
         handleClick={closeModal}
-        content={{ text: "Close", icon: XMarkIcon }}
-        extraBtnClasses="ml-auto text-main font-medium hover:text-error"
-      />
+        extraBtnClasses="ml-auto text-main font-medium hover:text-error mt-2"
+      >
+        <span>Close</span>
+        <XMarkIcon height={25} />
+      </Button>
       <div className="max-h-[80vh] overflow-y-auto">{children}</div>
     </dialog>
   );

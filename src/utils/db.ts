@@ -1,3 +1,4 @@
+import { Query } from "appwrite";
 import { ID, databases } from "../appwrite";
 import { IPayload } from "../types";
 
@@ -25,10 +26,44 @@ const updateDocument = async (payload: IPayload, id: string) => {
 
   return res;
 };
+
 const deleteDocument = async (id: string) => {
   const res = await databases.deleteDocument(dbID, collectionID, id);
 
   return res;
 };
 
-export { createDocument, readDocuments, updateDocument, deleteDocument };
+const searchTasks = async (searchTerm: string) => {
+  const resTitle = await databases.listDocuments(dbID, collectionID, [
+    Query.search("title", searchTerm),
+  ]);
+  const resDesc = await databases.listDocuments(dbID, collectionID, [
+    Query.search("description", searchTerm),
+  ]);
+
+  const res = [...resTitle.documents, ...resDesc.documents];
+
+  // remove duplicate tasks
+  const uniqueRes = res.filter(
+    (task, index, self) => index === self.findIndex((t) => t.$id === task.$id)
+  );
+
+  return uniqueRes;
+};
+
+const sortByDueDate = async (isEarliestToLatest: boolean) => {
+  const orderQuery = isEarliestToLatest
+    ? Query.orderAsc("due_date")
+    : Query.orderDesc("due_date");
+  const res = await databases.listDocuments(dbID, collectionID, [orderQuery]);
+  return res;
+};
+
+export {
+  createDocument,
+  readDocuments,
+  updateDocument,
+  deleteDocument,
+  searchTasks,
+  sortByDueDate,
+};
